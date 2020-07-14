@@ -1,0 +1,182 @@
+<h3>Plugin overview</h3>
+
+<p>
+The NP_LMRedirectToItem plugin was primarily made as a help when migrating to a different URL scheme for a Nucleus blog. 
+</p>
+
+<p>
+It can set up redirects for all item URLs in the old URL scheme. 
+
+Then you can migrate the blog to a different URL scheme and all old item URLs can still be used to access the items. 
+
+The plugin uses permanent redirects by default so search engines should be updated with the new item URLs. 
+</p>
+
+<p>
+Other uses for this plugin is to set up fixed URLs where you can change the item the URL will show. 
+Ideal where you want to have an URL that shows the newest item of a certain kind. 
+You can also use it to make a short URL for an item. 
+To use permanent or temporary redirects can be configured for each redirect.
+</p>
+
+
+<h3>Installation</h3>
+
+<p>
+The plugin is installed as a normal plugin. It will need the same .htaccess change that fancierURL plugins uses to be able to do redirects:
+</p>
+
+<pre>&lt;IfModule mod_rewrite.c&gt;
+        RewriteEngine on
+        RewriteCond %{REQUEST_FILENAME} !-f
+        RewriteCond %{REQUEST_FILENAME} !-d
+        RewriteRule ^(.*)$ index.php?virtualpath=$1 [L,QSA]
+&lt;/IfModule&gt;
+</pre>
+
+<p>
+The plugin has one configurable option: "Delete NP_LMRedirectToItem data on uninstall?". 
+This option lets you decide if you want to delete the NP_LMRedirectToItem data when you uninstall the plugin.
+</p>
+
+
+<h3>Upgrade</h3>
+
+<ul>
+<li>
+Take a backup of the current plugin files. You will need these if you want to rollback to the previous version after the upgrade.
+</li>
+<li>
+Take a backup of the database used for you Nucleus installation.
+</li>
+<li>
+Replace the old plugin files with the new ones. Do not uninstall the plugin.
+</li>
+<li>
+If a plugin data upgrade is needed, will an upgrade plugin data option be 
+available on the NP_LMRedirectToItem plugin admin page. Choose this option to upgrade the plugin data.
+</li>
+<li>
+After the plugin data upgrade has been performed may a rollback option and a commit option be available on the NP_LMRedirectToItem 
+plugin admin page. Not all upgrades support the rollback and commit option.
+</li>
+<li>
+If you are not pleased with the new version of the plugin you may use the rollback option to rollback the plugin data upgrade. 
+After the rollback of the plugin data upgrade you have to replace the new plugin files with the old plugin files.
+</li>
+<li>
+If you are pleased with the new version of the plugin you should use the commit option to commit the plugin data upgrade. 
+After the commit of the plugin data upgrade will any rollback and commit options disappear.
+</li>
+</ul>
+
+<p>
+</p>
+
+<h3>Usage</h3>
+
+<p>
+The redirects are administered from the plugin admin page which can be accessed from either 
+the quick menu in the admin area, or from the admin link for the plugin in the plugin list. 
+Only the blog super administrator can access the plugin admin page. 
+</p>
+
+<p>
+In the admin area for the LMRedirectToItem plugin you can do the following operations:
+</p>
+
+<ul>
+<li>
+Edit or delete existing redirects.
+</li>
+<li>
+Create new redirect.
+</li>
+<li>
+Create redirects for all items in all blogs.
+</li>
+<li>
+Delete all redirects.
+</li>
+<li>
+See the plugin help page.
+</li>
+</ul>
+
+<p>
+When you register a redirect should the redirect from field not include domain, 
+only the absolute path (from the document root) including any query string. 
+No wildcards are allowed. Examples: "/index.php?itemid=1" or "/some/path". 
+If you have Nucleus installed in a sub directory on the web server, must the redirect from always 
+include the sub directory. Examples: "/nuclusdir/index.php?itemid=1" or "/nuclusdir/some/path".
+</p>
+
+<p>
+If the redirect from url is the same as the url of the item redirecting to, 
+will the redirect be ignored. The plugin does not check for circle redirect loops.
+</p>
+
+<p>
+To set up a redirect you have to have the item id for the item you want to redirect to. 
+This item id can be obtained by checking the edit item URL in the admin area. 
+Example: http://example.com/nucleus/index.php?action=itemedit&amp;<b>itemid=1</b>. For this item is the item id is 1.
+After you have created the redirect you can check if the redirect 
+is to the correct item as the redirect to item id column in the plugin admin area has an item link.
+</p>
+
+<p>
+The plugin can use permanent or temporary redirects. This can be set up for each redirect. 
+If there is a chance a redirect may be changed to a different item is it best to set it up as a temporary redirect.
+</p>
+
+<p>
+Using the plugin to redirect from the old URL scheme item links when changing the URL scheme is quite easy:
+</p>
+
+<ul>
+<li>
+Install the LMRedirectToItem plugin.
+</li>
+<li>
+Execute the "Create redirects for all items" function on the plugin admin page. It's important this is done while the old URL scheme is active.
+</li>
+<li>
+Install and setup your new URL scheme plugin. 
+</li>
+</ul>
+
+
+<h3>Support and Bug reports</h3>
+
+<p>
+For additional support and/or bug reports please use the Nucleus forum 
+<a href="http://forum.nucleuscms.org/viewtopic.php?t=20493">plugin announce thread</a> 
+or the <a href="http://www.slightlysome.net/nucleus-plugins/np_lmredirecttoitem">plugin page</a> comment section.
+</p>
+
+<h3>Compability</h3>
+
+<p>
+This version of the NP_LMRedirectToItem is tested against version 3.64 of Nucleus CMS. Minimum version of Nucleus CMS needed for using the plugin is 3.50. 
+</p>
+
+
+<h3>Version History</h3>
+
+<ul>
+<li><b>v1.0.0 2011-06-27:</b> by Leo (http://www.slightlysome.net)</li>
+<ul>
+<li>Initial version.</li>
+</ul>
+<li><b>v1.1.0 2011-08-06:</b> by Leo (http://www.slightlysome.net)</li>
+<ul>
+<li>Possibility to set if a redirect should use temporary or permanent redirects.</li>
+<li>Implemented my suggested <a href="http://forum.nucleuscms.org/viewtopic.php?t=20531">plugin data upgrade handling</a>. The plugin does the upgrade handling by itself, and is not dependent of any core changes or other handling plugins.</li>
+</ul>
+</ul>
+
+<h3>Download</h3>
+
+<p>
+<a href="http://www.slightlysome.net/download/NP_LMRedirectToItem_v110.zip" title="Download NP_LMRedirectToItem_v110.zip">Download NP_LMRedirectToItem v1.1.0</a>. 
+</p>
